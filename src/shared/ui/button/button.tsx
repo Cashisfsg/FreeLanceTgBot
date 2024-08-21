@@ -9,10 +9,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
     return (
         <button
-            className={buttonVariants({
-                variant,
-                className
-            })}
+            className={buttonVariants({ variant, className })}
             {...props}
         />
     );

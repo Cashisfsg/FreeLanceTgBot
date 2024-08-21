@@ -1,4 +1,5 @@
 @import "./fonts.css";
+@import "./variables.css";
 
 @tailwind base;
 @tailwind components;
@@ -6,12 +7,13 @@
 
 :root {
     font-family: SF Pro;
-    line-height: 1.5;
+    line-height: 1.25;
     font-weight: 400;
+    letter-spacing: -0.025em;
 
-    color-scheme: light dark;
+    /* color-scheme: light dark; */
     /* color: rgba(255, 255, 255, 0.87); */
-    background-color: rgba(255 255 255);
+    background-color: var(--bg-color);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -28,9 +30,27 @@
 }
 
 body {
-    margin: 0;
     display: flex;
-    place-items: center;
+    flex-direction: column;
     min-width: 320px;
     min-height: 100vh;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: min(1024px, 100% - 2rem);
+    margin: 0 auto;
+}
+
+img,
+svg {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    font-style: italic;
+    background-repeat: no-repeat;
+    background-size: cover;
+    shape-margin: 0.75rem;
 }
