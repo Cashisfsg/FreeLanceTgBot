@@ -1,0 +1,1 @@
+export { ApplicationFunctionalityPage } from "./page";

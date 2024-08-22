@@ -30,10 +30,13 @@
 }
 
 body {
+    @apply bg-background-primary;
+
     display: flex;
     flex-direction: column;
     min-width: 320px;
     min-height: 100vh;
+    background: var(--bg-color);
 }
 
 #root {
@@ -42,6 +45,11 @@ body {
     flex: 1 1 auto;
     width: min(1024px, 100% - 2rem);
     margin: 0 auto;
+    padding-block-start: 1.5rem;
+}
+
+main {
+    flex: 1 1 auto;
 }
 
 img,
@@ -53,4 +61,13 @@ svg {
     background-repeat: no-repeat;
     background-size: cover;
     shape-margin: 0.75rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    letter-spacing: -0.025em;
 }

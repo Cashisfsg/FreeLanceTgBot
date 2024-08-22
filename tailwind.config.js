@@ -27,6 +27,16 @@ export default withTV({
                     destructive: "var(--destructive_text_color)"
                 },
                 separator: "var(--section-separator_color)"
+            },
+            fontFamily: {
+                primary: "SF Pro",
+                secondary: "SF Pro Rounded"
+            },
+            margin: {
+                7.5: "30px"
+            },
+            spacing: {
+                7.5: "30px"
             }
         }
     },

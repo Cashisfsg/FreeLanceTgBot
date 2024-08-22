@@ -1,0 +1,1 @@
+export { ApplicationCategoryPage } from "./page";
