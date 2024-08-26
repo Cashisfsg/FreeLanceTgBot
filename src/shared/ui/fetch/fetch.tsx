@@ -1,6 +1,4 @@
-import { useFetch } from "@/shared/model/hooks/use-fetch";
-
-type SearchParams = Record<string, string | number>;
+import { useFetch, type SearchParams } from "@/shared/model/hooks/use-fetch";
 
 type FetchProps<T> = {
     url: string;
@@ -19,13 +17,13 @@ export const Fetch = <T,>({
     loadingFallback = <p>Loading...</p>,
     renderError = error => <pre>{error.message}</pre>
 }: FetchProps<T>) => {
-    const { status, data, error } = useFetch(url, searchParams, options);
+    const { status, data, error } = useFetch<T>(url, searchParams, options);
 
     if (status === "pending") return loadingFallback;
 
-    if (status === "rejected") return renderError(error as Error);
+    if (status === "rejected") return renderError(error);
 
-    if (status === "fulfilled") return renderSuccess(data as T);
+    if (status === "fulfilled") return renderSuccess(data);
 
     return <></>;
 };

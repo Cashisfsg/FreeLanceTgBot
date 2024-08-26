@@ -35,7 +35,7 @@ type Action<D> =
     | { type: "fulfilled"; payload: D }
     | { type: "rejected"; payload: Error };
 
-type SearchParams = Record<string, string | number>;
+export type SearchParams = Record<string, string | number>;
 
 const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
     switch (action.type) {
@@ -109,5 +109,5 @@ export const useFetch = <T>(
         };
     }, [url, params, options]);
 
-    return state;
+    return state as State<T>;
 };
