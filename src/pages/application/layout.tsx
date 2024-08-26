@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 
-import { NavigationPanel } from "@/widgets/navigation";
+import { ApplicationLayoutHeader } from "@/widgets/application-layout-header";
 
 export const ApplicationLayout = () => {
     return (
         <>
-            <NavigationPanel />
+            <ApplicationLayoutHeader />
 
             <Outlet />
         </>

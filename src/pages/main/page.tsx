@@ -5,7 +5,7 @@ import { buttonVariants } from "@/shared/ui/button";
 export const MainPage = () => {
     return (
         <>
-            <header className="grid grid-cols-[minmax(min-content,_auto)_1fr] grid-rows-2 gap-x-6 gap-y-1">
+            <header className="grid grid-cols-[minmax(min-content,_auto)_1fr] grid-rows-[repeat(2,_minmax(min-content,_auto))] gap-x-6 gap-y-1">
                 <img
                     src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
                     alt="Profile photo"
@@ -13,10 +13,10 @@ export const MainPage = () => {
                     width="96"
                     className="row-span-2 size-24 rounded-full object-cover"
                 />
-                <h2 className="self-end truncate font-secondary text-3xl font-bold capitalize tracking-wide">
+                <h2 className="mt-4 self-end truncate font-secondary text-3xl font-bold capitalize tracking-wide">
                     Anthony Gray
                 </h2>
-                <p className="self-start text-base/snug tracking-tight text-[#707579]">
+                <p className="mb-4 self-start text-base/snug tracking-tight text-[#707579]">
                     Novice Client
                 </p>
             </header>
