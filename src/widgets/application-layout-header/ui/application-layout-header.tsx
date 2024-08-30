@@ -16,7 +16,7 @@ export const ApplicationLayoutHeader = () => {
             value: 2,
             label: `menuitem-${useId()}`
         },
-        features: {
+        functionality: {
             value: 2,
             label: `menuitem-${useId()}`
         },
@@ -62,7 +62,8 @@ export const ApplicationLayoutHeader = () => {
                         className="text-center"
                     >
                         <NavLink
-                            to="/application/functionality/ai-assist-description"
+                            // to="/application/functionality/ai-assist-description"
+                            to="/application/functionality"
                             id={locations["ai-assist-description"].label}
                             role="menuitem"
                         >

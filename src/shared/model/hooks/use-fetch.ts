@@ -63,26 +63,21 @@ const initialState: InitialState = {
 };
 
 export const useFetch = <T>(
-    url: string,
-    searchParams?: SearchParams,
-    options?: RequestInit
+    endpoint: string,
+    queryParams?: SearchParams,
+    requestOptions?: RequestInit
 ): State<T> => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const params = useMemo(
-        () =>
-            searchParams
-                ? `?${new URLSearchParams(
-                      Object.fromEntries(
-                          Object.entries(searchParams).map(([key, value]) => [
-                              key,
-                              String(value)
-                          ])
-                      )
-                  )}`
-                : "",
-        [searchParams]
-    );
+    const url = useMemo(() => {
+        return new URL(endpoint, import.meta.env.VITE_BASE_API_URL);
+    }, [endpoint]);
+
+    if (queryParams) {
+        Object.entries(queryParams).forEach(([key, value]) => {
+            url.searchParams.append(key, value.toString());
+        });
+    }
 
     useEffect(() => {
         const controller = new AbortController();
@@ -92,14 +87,26 @@ export const useFetch = <T>(
             dispatch({ type: "pending" });
 
             try {
-                const response = await fetch(`${url}${params}`, {
-                    ...options,
+                const response = await fetch(url.toString(), {
+                    ...requestOptions,
                     signal
                 });
+
+                if (!response.ok) {
+                    throw new Error("Something went wrong");
+                }
+
                 const result = (await response.json()) as T;
 
                 dispatch({ type: "fulfilled", payload: result });
             } catch (error) {
+                if ((error as Error).name === "AbortError") {
+                    console.error(
+                        "Request aborted: ",
+                        (error as Error).message
+                    );
+                }
+
                 dispatch({ type: "rejected", payload: error as Error });
             }
         })();
@@ -107,7 +114,7 @@ export const useFetch = <T>(
         return () => {
             controller.abort();
         };
-    }, [url, params, options]);
+    }, [endpoint, url, requestOptions]);
 
     return state as State<T>;
 };
