@@ -1,0 +1,44 @@
+.group {
+    @apply rounded-xl bg-white shadow-md;
+
+    & label {
+        @apply grid cursor-pointer select-none grid-cols-[minmax(min-content,_auto)_1fr] gap-x-4 gap-y-0.5 px-4;
+
+        & > input {
+            @apply self-center;
+        }
+    }
+
+    & label:has(dl) {
+        @apply grid-rows-[repeat(2,_auto)];
+
+        & > input {
+            @apply row-span-2;
+        }
+
+        & > dl {
+            @apply row-span-2 grid grid-rows-subgrid py-3;
+
+            & > dt {
+                @apply text-lg/tight;
+            }
+
+            & > dd {
+                @apply text-base/tight text-[#707579];
+            }
+        }
+    }
+
+    & label:has(p) {
+        & > p {
+            @apply py-3 text-lg/tight;
+        }
+    }
+
+    & label:has(dl, p):not(:last-of-type) {
+        & > dl,
+        p {
+            @apply border-b border-black/15;
+        }
+    }
+}

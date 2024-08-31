@@ -9,24 +9,30 @@ export const ApplicationLayoutHeader = () => {
 
     const locations = {
         category: {
-            value: 1,
-            label: `menuitem-${useId()}`
+            id: `menuitem-${useId()}`,
+            label: "Bot category",
+            // url: "category",
+            value: 1
         },
-        "ai-assist-description": {
-            value: 2,
-            label: `menuitem-${useId()}`
-        },
+        // "ai-assist-description": {
+        //     id: `menuitem-${useId()}`,
+        //     value: 2
+        // },
         functionality: {
-            value: 2,
-            label: `menuitem-${useId()}`
+            id: `menuitem-${useId()}`,
+            label: "Functionality",
+            // url: "functionality",
+            value: 2
         },
         conditions: {
-            value: 3,
-            label: `menuitem-${useId()}`
+            id: `menuitem-${useId()}`,
+            label: "Work conditions",
+            // url: "conditions",
+            value: 3
         }
-    };
+    } as const;
 
-    const location = useLocation()
+    const currentLocation = useLocation()
         .pathname.split("/")
         .at(-1) as keyof typeof locations;
 
@@ -37,51 +43,41 @@ export const ApplicationLayoutHeader = () => {
                 min={1}
                 max={3}
                 step={1}
-                value={locations[location].value}
+                value={locations[currentLocation].value}
                 valueText="Text values"
-                aria-labelledby={locations[location].label}
+                aria-labelledby={locations[currentLocation].id}
                 className="-mx-[7px] w-[calc(100%_+_14px)] max-w-none"
             />
 
             <nav>
                 <ul
                     role="menubar"
-                    className="underline-offset-3 grid grid-cols-3 gap-x-2 text-sm font-semibold text-[#007aff] underline"
+                    className="grid grid-cols-[2fr_3fr_2fr] gap-x-2 text-sm font-semibold text-[#007aff] underline underline-offset-2"
                 >
-                    <li role="none">
-                        <NavLink
-                            to="/application/category"
-                            id={locations.category.label}
-                            role="menuitem"
+                    {(
+                        Object.keys(locations) as Array<keyof typeof locations>
+                    ).map((key, index) => (
+                        <li
+                            key={locations[key].id}
+                            className="contents"
                         >
-                            Bot Category
-                        </NavLink>
-                    </li>
-                    <li
-                        role="none"
-                        className="text-center"
-                    >
-                        <NavLink
-                            // to="/application/functionality/ai-assist-description"
-                            to="/application/functionality"
-                            id={locations["ai-assist-description"].label}
-                            role="menuitem"
-                        >
-                            Functionality
-                        </NavLink>
-                    </li>
-                    <li
-                        role="none"
-                        className="text-right"
-                    >
-                        <NavLink
-                            to="/application/conditions"
-                            id={locations.conditions.label}
-                            role="menuitem"
-                        >
-                            Work Conditions
-                        </NavLink>
-                    </li>
+                            <NavLink
+                                to={`/application/${key}`}
+                                id={locations[key].id}
+                                role="menuitem"
+                                className={
+                                    index === 0
+                                        ? "text-left"
+                                        : index !==
+                                            Object.keys(locations).length - 1
+                                          ? "text-center"
+                                          : "text-right"
+                                }
+                            >
+                                {locations[key].label}
+                            </NavLink>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </header>

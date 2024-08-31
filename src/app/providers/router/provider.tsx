@@ -27,6 +27,10 @@ const router = createBrowserRouter([
                 element: <ApplicationFunctionalityPage />
             },
             {
+                path: "conditions",
+                element: <ApplicationFunctionalityPage />
+            },
+            {
                 path: "*",
                 element: <Navigate to="/application/category" />
             }

@@ -1,4 +1,4 @@
-import { useFetch, type SearchParams } from "@/shared/model/hooks/use-fetch";
+import { useFetch, type SearchParams } from "@/shared/lib/hooks/use-fetch";
 
 type FetchProps<T> = {
     url: string;
