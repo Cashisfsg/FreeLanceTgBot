@@ -1,15 +1,15 @@
 .group {
     @apply rounded-xl bg-white shadow-md;
 
-    & label {
-        @apply grid cursor-pointer select-none grid-cols-[minmax(min-content,_auto)_1fr] gap-x-4 gap-y-0.5 px-4;
+    & > label {
+        @apply grid cursor-pointer select-none grid-cols-[minmax(min-content,_auto)_1fr] gap-x-4 gap-y-0.5 px-4 has-[svg]:grid-cols-[minmax(min-content,_auto)_minmax(min-content,_auto)_1fr];
 
         & > input {
             @apply self-center;
         }
     }
 
-    & label:has(dl) {
+    & > label:has(dl) {
         @apply grid-rows-[repeat(2,_auto)];
 
         & > input {
@@ -29,13 +29,13 @@
         }
     }
 
-    & label:has(p) {
+    & > label:has(p) {
         & > p {
             @apply py-3 text-lg/tight;
         }
     }
 
-    & label:has(dl, p):not(:last-of-type) {
+    & > label:has(dl, p):not(:last-of-type) {
         & > dl,
         p {
             @apply border-b border-black/15;

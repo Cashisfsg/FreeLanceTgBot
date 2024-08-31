@@ -1,2 +1,6 @@
 export * from "./get-questions";
-export type { Question, Option, QuestionsResponseModified } from "./types";
+export type {
+    Question,
+    Option,
+    FetchAllQuestionsTransformedResponse
+} from "./types";

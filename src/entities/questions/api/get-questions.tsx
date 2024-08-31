@@ -1,6 +1,9 @@
 import { rootApi } from "@/shared/api/api";
 
-import type { QuestionsResponse, QuestionsResponseModified } from "./types";
+import type {
+    FetchAllQuestionsResponse,
+    FetchAllQuestionsTransformedResponse
+} from "./types";
 
 export const getQuestionsApi = rootApi
     .enhanceEndpoints({
@@ -8,13 +11,16 @@ export const getQuestionsApi = rootApi
     })
     .injectEndpoints({
         endpoints: builder => ({
-            fetchQuestions: builder.query<QuestionsResponseModified, void>({
+            fetchAllQuestions: builder.query<
+                FetchAllQuestionsTransformedResponse,
+                void
+            >({
                 query: () => "orders/form_structure",
-                transformResponse: (response: QuestionsResponse) =>
+                transformResponse: (response: FetchAllQuestionsResponse) =>
                     response?.sections
             })
         })
     });
 
-export const { useFetchQuestionsQuery, useLazyFetchQuestionsQuery } =
+export const { useFetchAllQuestionsQuery, useLazyFetchAllQuestionsQuery } =
     getQuestionsApi;

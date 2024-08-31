@@ -1,4 +1,4 @@
-export interface Questions {
+export interface Question {
     sections: Section[];
 }
 
@@ -7,38 +7,56 @@ export interface Section {
     questions: Question[];
 }
 
+export type QuestionType =
+    | "checkbox"
+    | "radio"
+    // | "vertical_slider"
+    | "drag_and_drop"
+    // | "select"
+    | "text";
+// | "combobox";
+
+type TextInputType =
+    | "text"
+    | "date"
+    | "number"
+    // | "email"
+    // | "password"
+    // | "tel"
+    | "textarea";
+
 export interface Question {
     id: number;
     key: string;
-    type: "radio" | "checkbox" | "text";
+    type: QuestionType;
     text: string;
     description?: string;
     required: boolean;
     has_text_input: boolean;
-    text_input_type?: string;
+    text_input_type?: TextInputType;
     text_input_description?: string;
-    text_input_placeholder?: string;
+    text_input_placeholder: string;
     has_file_input: boolean;
-    file_input_types?: string;
-    file_input_button_text?: string;
+    file_input_types: string;
+    file_input_button_text: string;
     link_url?: string;
     link_text?: string;
     options: Option[];
     display_order: number;
-    parent_question_id?: number;
-    condition_option_id?: number;
 }
 
 export interface Option {
     id: number;
     key: string;
     text: string;
-    subtitle?: string;
-    icon_url?: string;
-    hint?: string;
+    subtitle: string | null;
+    icon_url: string | null;
+    hint: string;
     display_order: number;
 }
 
-export type QuestionsResponse = Questions;
+export interface FetchAllQuestionsResponse {
+    sections: Section[];
+}
 
-export type QuestionsResponseModified = Section[];
+export type FetchAllQuestionsTransformedResponse = Section[];

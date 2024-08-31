@@ -1,12 +1,9 @@
-import { Input } from "@/shared/ui/input/input";
-
 import { FetchQuestions } from "@/entities/questions";
 import { QuestionList } from "@/entities/questions/ui/question-list";
 
 export const ApplicationCategoryPage = () => {
     return (
         <>
-            Application category page
             <FetchQuestions
                 renderSuccess={sections => (
                     <QuestionList
@@ -17,11 +14,6 @@ export const ApplicationCategoryPage = () => {
                         }
                     />
                 )}
-            />
-            <Input
-                variant="text"
-                className=""
-                placeholder="Some text"
             />
         </>
     );
