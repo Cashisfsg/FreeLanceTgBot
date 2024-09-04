@@ -50,6 +50,17 @@ body {
     width: min(1024px, 100% - 2rem);
     margin: 0 auto;
     padding-block-start: 1.5rem;
+
+    /* display: flex; */
+    /* flex-direction: column; */
+    justify-content: start;
+    /* width: min(720px, calc(100% - 2rem)); */
+    row-gap: 2rem;
+    min-height: 100svh;
+    /* margin: 0 auto; */
+    padding-block-end: 2rem;
+
+    /* text-align: center; */
 }
 
 main {

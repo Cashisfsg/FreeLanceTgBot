@@ -26,11 +26,11 @@ type TextInputType =
     | "textarea";
 
 export interface Question {
-    id: number;
-    key: string;
-    type: QuestionType;
-    text: string;
-    description?: string;
+    question_id: number;
+    question_key: string;
+    question_type: QuestionType;
+    question_text: string;
+    question_description?: string;
     required: boolean;
     has_text_input: boolean;
     text_input_type?: TextInputType;
@@ -46,9 +46,9 @@ export interface Question {
 }
 
 export interface Option {
-    id: number;
-    key: string;
-    text: string;
+    option_id: number;
+    option_key: string;
+    option_text: string;
     subtitle: string | null;
     icon_url: string | null;
     hint: string;

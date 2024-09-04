@@ -21,20 +21,6 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
     className,
     ...props
 }) => {
-    // const [availableItems, setAvailableItems] = useState(
-    //     question.options.map(option => option.text)
-    // );
-    // const [selectedItems, setSelectedItems] = useState<string[]>([]);
-
-    // const handleDragDropChange = (
-    //     newAvailable: string[],
-    //     newSelected: string[]
-    // ) => {
-    //     setAvailableItems(newAvailable);
-    //     setSelectedItems(newSelected);
-    //     // Here you would typically update the question's answer in your form state
-    // };
-
     return (
         <section
             className={cnBase("space-y-8", className)}
@@ -43,15 +29,15 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
             <header>
                 <HeaderGroup.Root>
                     <HeaderGroup.Title as="h2">
-                        {question.text}
+                        {question.question_text}
                     </HeaderGroup.Title>
                     <HeaderGroup.SubTitle>
-                        {question.description}
+                        {question.question_description}
                     </HeaderGroup.SubTitle>
                 </HeaderGroup.Root>
             </header>
 
-            {question.type === "drag_and_drop" ? (
+            {question.question_type === "drag_and_drop" ? (
                 <></>
             ) : // <DragDropInput
             //     availableItems={availableItems}
@@ -60,7 +46,7 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
             // />
             question.options.length !== 0 ? (
                 <OptionGroup
-                    type={question.type}
+                    type={question.question_type}
                     options={question.options}
                 />
             ) : null}
@@ -68,19 +54,19 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
             {question.has_text_input ? (
                 <fieldset className="space-y-2.5">
                     <label
-                        htmlFor={`question-${question.id}`}
+                        htmlFor={`question-${question.question_id}`}
                         className="block text-xl/tight font-bold"
                     >
                         {question?.text_input_description}
                     </label>
                     {question?.text_input_type === "textarea" ? (
                         <TextArea
-                            id={`question-${question.id}`}
+                            id={`question-${question.question_id}`}
                             placeholder={question?.text_input_placeholder}
                         />
                     ) : (
                         <Input
-                            id={`question-${question.id}`}
+                            id={`question-${question.question_id}`}
                             variant={question?.text_input_type}
                             placeholder={question?.text_input_placeholder}
                         />

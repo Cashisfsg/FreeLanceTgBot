@@ -13,7 +13,7 @@ export const OptionGroupItem: React.FC<OptionGroupItemProps> = ({
 }) => {
     return (
         <label
-            key={option.id}
+            key={option.option_id}
             {...props}
         >
             <Input
@@ -22,11 +22,11 @@ export const OptionGroupItem: React.FC<OptionGroupItemProps> = ({
             />
             {option.subtitle ? (
                 <dl>
-                    <dt>{option.text}</dt>
+                    <dt>{option.option_text}</dt>
                     <dd>{option.subtitle}</dd>
                 </dl>
             ) : (
-                <p>{option.text}</p>
+                <p>{option.option_text}</p>
             )}
         </label>
     );

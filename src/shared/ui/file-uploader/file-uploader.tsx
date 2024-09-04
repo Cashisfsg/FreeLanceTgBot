@@ -26,8 +26,6 @@ type Action =
 const reducer = (state: State, action: Action): State => {
     switch (action.type) {
         case "append": {
-            action.payload.forEach(file => console.log(file.type));
-
             return [
                 ...state,
                 ...action.payload.map(document => ({
@@ -71,7 +69,7 @@ export const FileUploader = () => {
     return (
         <>
             {fileList.length !== 0 ? (
-                <ul className="rounded-xl bg-white">
+                <ul className="rounded-xl bg-white shadow-md">
                     {fileList.map(document => (
                         <li
                             key={document.file.lastModified}
@@ -86,16 +84,18 @@ export const FileUploader = () => {
                                 alt={document.file.name}
                                 height="48"
                                 width="48"
-                                className={`row-span-2 size-12 rounded-lg object-center ${document.file.type.startsWith("image") ? "object-cover" : "bg-[#4378ff]/10 p-2.5"}`}
+                                className={`row-span-2 size-12 rounded-lg object-center ${document.file.type.startsWith("image") ? "object-cover" : document.file.size > 10 * 1024 * 1024 ? "bg-[#f12e2e]/5 p-2.5" : "bg-[#4378ff]/10 p-2.5"}`}
                             />
                             <dl className="row-span-2 grid grid-rows-subgrid">
                                 <dt className="self-end truncate text-base/tight">
                                     {document.file.name}
                                 </dt>
-                                <dd className="self-start truncate text-sm/tight text-[#a2acb0]">
-                                    {document.file.type.startsWith("image")
-                                        ? "Image"
-                                        : "PDF Document"}
+                                <dd
+                                    className={`self-start truncate text-sm/tight text-[#a2acb0] first-letter:uppercase ${document.file.size > 10 * 1024 * 1024 ? "text-[#E53935]" : ""}`}
+                                >
+                                    {document.file.size > 10 * 1024 * 1024
+                                        ? "Maximum allowed file size of 10 MB exceeded."
+                                        : document.file.type}
                                 </dd>
                             </dl>
                             <button
@@ -116,7 +116,7 @@ export const FileUploader = () => {
                     <li></li>
                 </ul>
             ) : null}
-            <label className="flex cursor-pointer items-center gap-x-4.5 px-4 py-3">
+            <label className="gap-x-4.5 flex cursor-pointer items-center px-4 py-3">
                 {fileList.length !== 0 ? (
                     <>
                         <img

@@ -1,0 +1,35 @@
+.trigger {
+    anchor-name: var(--tooltip-trigger);
+}
+
+.content {
+    inset: unset;
+    position: absolute;
+    position-anchor: var(--tooltip-trigger);
+
+    /* justify-self: anchor-center; */
+    inset-area: top;
+    position-try-options: flip-block;
+    /* background: yellowgreen; */
+    /* position-try: inset-area(top), inset-area(bottom); */
+}
+
+/* .arrow {
+    position: absolute;
+    visibility: hidden;
+    width: 28px;
+    height: 7px;
+    position-anchor: --tooltip-trigger;
+    inset-area: top;
+    margin-bottom: -7px;
+    position-try-options: flip-block;
+
+    clip-path: path(
+        "M10.8042 6C6.38687 6 6.93904 1.94046e-05 0.865181 1.93009e-06H20.7433C14.6694 1.93009e-06 15.2216 6 10.8042 6Z"
+    );
+    background: red;
+}
+
+.content:popover-open + .arrow {
+    visibility: visible;
+} */
