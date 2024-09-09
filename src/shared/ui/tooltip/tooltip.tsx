@@ -1,4 +1,4 @@
-import { useRef, useId } from "react";
+import { useEffect, useRef, useId } from "react";
 import { cnBase } from "tailwind-variants";
 import { Portal as PortalPrimitive } from "../portal";
 
@@ -13,12 +13,13 @@ interface RootProps extends React.PropsWithChildren {}
 export const Root: React.FC<RootProps> = ({ children }) => {
     const anchorId = `tooltip-trigger-${useId()}`;
     const tooltipId = `tooltip-${useId()}`;
+    const triggerRef = useRef<HTMLButtonElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
     const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
     return (
         <TooltipContext.Provider
-            value={{ anchorId, tooltipId, tooltipRef, timerRef }}
+            value={{ anchorId, tooltipId, triggerRef, tooltipRef, timerRef }}
         >
             {children}
         </TooltipContext.Provider>
@@ -38,7 +39,17 @@ export const Trigger: React.FC<TriggerProps> = ({
     onMouseLeave,
     ...props
 }) => {
-    const { anchorId, tooltipId, tooltipRef, timerRef } = useTooltipContext();
+    const { anchorId, tooltipId, triggerRef, tooltipRef, timerRef } =
+        useTooltipContext();
+
+    useEffect(() => {
+        if (!triggerRef.current) return;
+
+        triggerRef.current.style.setProperty(
+            "--tooltip-trigger",
+            `--${tooltipId.replace(/:/g, "")}`
+        );
+    }, [tooltipId, triggerRef]);
 
     const onBlurHandler: React.FocusEventHandler<HTMLButtonElement> = () => {
         tooltipRef.current?.hidePopover();
@@ -122,6 +133,7 @@ export const Trigger: React.FC<TriggerProps> = ({
                 onMouseLeaveHandler
             )}
             className={cnBase(Tooltip.trigger, className)}
+            ref={triggerRef}
             {...props}
         />
     );
@@ -142,6 +154,15 @@ export const Content: React.FC<ContentProps> = ({
     ...props
 }) => {
     const { tooltipId, tooltipRef, timerRef } = useTooltipContext();
+
+    useEffect(() => {
+        if (!tooltipRef.current) return;
+
+        tooltipRef.current.style.setProperty(
+            "--tooltip-trigger",
+            `--${tooltipId.replace(/:/g, "")}`
+        );
+    }, [tooltipId, tooltipRef]);
 
     const onMouseEnterHandler: React.MouseEventHandler<
         HTMLDivElement

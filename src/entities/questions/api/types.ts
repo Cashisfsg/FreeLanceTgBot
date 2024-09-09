@@ -10,7 +10,7 @@ export interface Section {
 export type QuestionType =
     | "checkbox"
     | "radio"
-    // | "vertical_slider"
+    | "vertical_slider"
     | "drag_and_drop"
     // | "select"
     | "text";

@@ -79,12 +79,7 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
                                 >
                                     <span>{option.option_text}</span>
                                     <Tooltip.Root>
-                                        <Tooltip.Trigger
-                                            style={{
-                                                "--tooltip-trigger": `--trigger-${option.option_text.split(" ")[0]}`
-                                            }}
-                                            className="absolute -right-2.5 -top-2.5 flex size-7 items-center justify-center rounded-full bg-inherit p-1 group-aria-selected:hidden"
-                                        >
+                                        <Tooltip.Trigger className="absolute -right-2.5 -top-2.5 flex size-7 items-center justify-center rounded-full bg-inherit p-1 group-aria-selected:hidden">
                                             <img
                                                 src={QuestionMark}
                                                 alt="Question mark"
@@ -96,12 +91,7 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
                                         </Tooltip.Trigger>
 
                                         <Tooltip.Portal>
-                                            <Tooltip.Content
-                                                style={{
-                                                    "--tooltip-trigger": `--trigger-${option.option_text.split(" ")[0]}`
-                                                }}
-                                                className="text-pretty rounded-xl bg-black/85 p-2.5 text-center text-sm -tracking-wider text-white"
-                                            >
+                                            <Tooltip.Content className="text-pretty rounded-xl bg-black/85 p-2.5 text-center text-sm -tracking-wider text-white">
                                                 {option.hint}
                                             </Tooltip.Content>
                                         </Tooltip.Portal>

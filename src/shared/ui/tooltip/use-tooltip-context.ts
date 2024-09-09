@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 export const TooltipContext = createContext<{
     anchorId: string;
     tooltipId: string;
+    triggerRef: React.RefObject<HTMLButtonElement>;
     tooltipRef: React.RefObject<HTMLDivElement>;
     timerRef: React.RefObject<NodeJS.Timeout | undefined>;
 } | null>(null);
