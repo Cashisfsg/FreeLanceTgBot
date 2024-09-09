@@ -59,6 +59,7 @@ export const ApplicationLayoutHeader = () => {
                     ).map((key, index) => (
                         <li
                             key={locations[key].id}
+                            role="none"
                             className="contents"
                         >
                             <NavLink

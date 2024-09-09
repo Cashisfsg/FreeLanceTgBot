@@ -24,9 +24,9 @@ type ProgressBarProps = Omit<
     // width: number;
     min: number;
     max: number;
-    value: number;
+    value?: number;
     step: number;
-    valueText: string;
+    valueText?: string;
 } & Progressbar;
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
@@ -63,7 +63,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
                 <rect
                     x="14"
                     y="12.5"
-                    width={(width - 28) * ((value - step) / (max - min))}
+                    width={
+                        value
+                            ? (width - 28) * ((value - step) / (max - min))
+                            : 0
+                    }
                     height="3"
                     fill="#007aff"
                     className="transition-all duration-300"
@@ -86,10 +90,14 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
                             }
                             cy="14"
                             r="7"
-                            fill={index * step < value ? "#007aff" : "#cbcbcb"}
+                            fill={
+                                index * step < (value || 0)
+                                    ? "#007aff"
+                                    : "#cbcbcb"
+                            }
                             strokeWidth="14"
                             stroke={
-                                (index + 1) * step === value
+                                (index + 1) * step === (value || 0)
                                     ? "#4378ff1A"
                                     : undefined
                             }
@@ -122,7 +130,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
                 <rect
                     x="12.5"
                     y="14"
-                    height={(height - 28) * ((value - step) / (max - min))}
+                    height={
+                        value
+                            ? (height - 28) * ((value - step) / (max - min))
+                            : 0
+                    }
                     width="3"
                     fill="#007aff"
                     className="transition-all duration-300"
@@ -139,10 +151,14 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
                                 (height - 28) * ((index * step) / (max - min))
                             }
                             r="7"
-                            fill={index * step < value ? "#007aff" : "#cbcbcb"}
+                            fill={
+                                index * step < (value || 0)
+                                    ? "#007aff"
+                                    : "#cbcbcb"
+                            }
                             strokeWidth="14"
                             stroke={
-                                (index + 1) * step === value
+                                (index + 1) * step === (value || 0)
                                     ? "#4378ff1A"
                                     : undefined
                             }

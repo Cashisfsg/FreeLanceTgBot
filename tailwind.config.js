@@ -40,6 +40,9 @@ export default withTV({
             },
             spacing: {
                 7.5: "30px"
+            },
+            lineHeight: {
+                5.5: "1.375rem"
             }
         }
     },

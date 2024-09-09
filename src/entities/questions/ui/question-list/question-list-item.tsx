@@ -45,7 +45,7 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
                 <DragAndDrop.Root>
                     <DragAndDrop.DropArea
                         placeholder={
-                            <p className="px-15 rounded-2xl border-2 border-dashed bg-white py-10 text-center text-[#a2acb0] shadow-md">
+                            <p className="rounded-2xl border-2 border-dashed bg-white px-15 py-10 text-center text-[#a2acb0] shadow-md">
                                 Drag and drop features that you like here
                             </p>
                         }
@@ -111,6 +111,8 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
             question.options && question.options.length !== 0 ? (
                 <OptionGroup
                     type={question.question_type}
+                    name={question.question_key}
+                    required={question?.is_required}
                     options={question.options}
                 />
             ) : null}

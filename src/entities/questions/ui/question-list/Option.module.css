@@ -42,3 +42,23 @@
         }
     }
 }
+
+.progress-bar {
+    @apply grid grid-cols-[min-content,_1fr] gap-x-4 rounded-xl bg-white px-8 py-6 shadow-md;
+
+    & svg {
+        @apply max-w-none;
+    }
+
+    & > div {
+        @apply flex flex-col;
+
+        & > label {
+            @apply h-12 cursor-pointer select-none;
+        }
+    }
+
+    & input {
+        @apply hidden;
+    }
+}

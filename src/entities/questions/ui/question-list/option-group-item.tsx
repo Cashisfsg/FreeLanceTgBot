@@ -4,11 +4,15 @@ import type { QuestionType, Option } from "../../api";
 interface OptionGroupItemProps extends React.ComponentProps<"label"> {
     type: QuestionType;
     option: Option;
+    name: string;
+    required?: boolean;
 }
 
 export const OptionGroupItem: React.FC<OptionGroupItemProps> = ({
     type,
     option,
+    name,
+    required,
     ...props
 }) => {
     return (
@@ -17,8 +21,10 @@ export const OptionGroupItem: React.FC<OptionGroupItemProps> = ({
             {...props}
         >
             <Input
-                variant={type}
-                name="name"
+                variant={type === "vertical_slider" ? "radio" : type}
+                name={name}
+                value={option.display_order}
+                required={required}
             />
             {option.subtitle ? (
                 <dl>
