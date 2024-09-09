@@ -12,7 +12,7 @@ export const useTooltipContext = () => {
 
     if (!context) {
         throw new Error(
-            "Component must be rendered as child of HeaderGroup component"
+            "Component must be rendered as child of Tooltip component"
         );
     }
 

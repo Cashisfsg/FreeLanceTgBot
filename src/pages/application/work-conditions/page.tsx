@@ -1,6 +1,6 @@
 import { FetchQuestions, QuestionList } from "@/entities/questions";
 
-export const ApplicationFunctionalityPage = () => {
+export const ApplicationWorkConditionsPage = () => {
     return (
         <main>
             <form className="space-y-8">
@@ -9,7 +9,8 @@ export const ApplicationFunctionalityPage = () => {
                         <QuestionList
                             questions={
                                 sections.find(
-                                    section => section.name === "functionality"
+                                    section =>
+                                        section.name === "work_conditions"
                                 )!.questions
                             }
                         />

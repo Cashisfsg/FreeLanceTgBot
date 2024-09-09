@@ -23,6 +23,7 @@ export const OptionGroup: React.FC<OptionGroupProps> = ({
         >
             {options.map(option => (
                 <OptionGroupItem
+                    key={option.option_id}
                     type={type}
                     option={option}
                 />

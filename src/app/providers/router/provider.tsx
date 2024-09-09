@@ -8,6 +8,7 @@ import { MainPage } from "@/pages/main";
 import { ApplicationLayout } from "@/pages/application/layout";
 import { ApplicationCategoryPage } from "@/pages/application/category";
 import { ApplicationFunctionalityPage } from "@/pages/application/functionality";
+import { ApplicationWorkConditionsPage } from "@/pages/application/work-conditions";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "conditions",
-                element: <ApplicationFunctionalityPage />
+                element: <ApplicationWorkConditionsPage />
             },
             {
                 path: "*",

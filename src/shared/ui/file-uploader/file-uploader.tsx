@@ -49,7 +49,15 @@ const reducer = (state: State, action: Action): State => {
     }
 };
 
-export const FileUploader = () => {
+interface FileUploaderProps {
+    fileTypes?: string;
+    buttonText: string;
+}
+
+export const FileUploader: React.FC<FileUploaderProps> = ({
+    fileTypes,
+    buttonText
+}) => {
     const [fileList, dispatch] = useReducer(reducer, []);
 
     const onChangeHandler: React.ChangeEventHandler<
@@ -67,13 +75,13 @@ export const FileUploader = () => {
     };
 
     return (
-        <>
+        <div className="group rounded-xl has-[ul]:bg-white has-[ul]:px-4 has-[ul]:shadow-md">
             {fileList.length !== 0 ? (
-                <ul className="rounded-xl bg-white shadow-md">
+                <ul>
                     {fileList.map(document => (
                         <li
                             key={document.file.lastModified}
-                            className="grid grid-cols-[auto_1fr_auto] grid-rows-2 gap-x-4 gap-y-0.5 border-b border-black/15 px-4 py-3"
+                            className="grid grid-cols-[auto_1fr_auto] grid-rows-2 gap-x-4 gap-y-0.5 border-b border-black/15 py-3"
                         >
                             <img
                                 src={
@@ -113,10 +121,9 @@ export const FileUploader = () => {
                             </button>
                         </li>
                     ))}
-                    <li></li>
                 </ul>
             ) : null}
-            <label className="gap-x-4.5 flex cursor-pointer items-center px-4 py-3">
+            <label className="gap-x-4.5 flex cursor-pointer items-center group-has-[ul]:py-3">
                 {fileList.length !== 0 ? (
                     <>
                         <img
@@ -137,18 +144,18 @@ export const FileUploader = () => {
                             className: "w-max rounded-full"
                         })}
                     >
-                        Or upload files
+                        {buttonText}
                     </span>
                 )}
                 <input
                     type="file"
                     name=""
-                    accept="image/*, application/pdf"
+                    accept={fileTypes}
                     multiple
                     hidden
                     onChange={onChangeHandler}
                 />
             </label>
-        </>
+        </div>
     );
 };

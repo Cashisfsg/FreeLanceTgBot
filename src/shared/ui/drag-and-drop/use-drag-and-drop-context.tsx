@@ -1,13 +1,14 @@
 import { createContext, RefObject, useContext } from "react";
 
-interface Option {
+export interface Option {
+    id: string;
     label: string;
     value: string | number;
-    // element: React.RefObject<HTMLLIElement>;
 }
 
 export const DragAndDropContext = createContext<{
     draggableOption: RefObject<Option>;
+    menuRef: RefObject<HTMLUListElement>;
 } | null>(null);
 
 export const useDragAndDropContext = () => {

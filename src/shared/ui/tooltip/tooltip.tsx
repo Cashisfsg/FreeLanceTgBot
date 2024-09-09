@@ -191,4 +191,4 @@ export const Content: React.FC<ContentProps> = ({
     );
 };
 
-Content.displayName = "Popover.Content";
+Content.displayName = "Tooltip.Content";

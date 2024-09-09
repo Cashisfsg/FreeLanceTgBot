@@ -7,11 +7,13 @@ interface InputProps
 export const Input: React.FC<InputProps> = ({
     className,
     variant,
+    autoComplete = "off",
     ...props
 }) => {
     return (
         <input
             type={variant}
+            autoComplete={autoComplete}
             className={inputVariants({ variant, className })}
             {...props}
         />

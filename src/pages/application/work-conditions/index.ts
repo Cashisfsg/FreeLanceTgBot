@@ -1,0 +1,1 @@
+export { ApplicationWorkConditionsPage } from "./page";

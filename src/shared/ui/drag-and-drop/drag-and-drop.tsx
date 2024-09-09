@@ -3,24 +3,21 @@ import { composeEventHandlers } from "@/shared/lib/compose-event-handlers";
 
 import {
     DragAndDropContext,
-    useDragAndDropContext
+    useDragAndDropContext,
+    type Option
 } from "./use-drag-and-drop-context";
-
-interface Option {
-    label: string;
-    value: string | number;
-    // element: React.RefObject<HTMLLIElement>;
-}
 
 interface RootProps extends React.ComponentPropsWithoutRef<"section"> {}
 
 export const Root: React.FC<RootProps> = ({ children, ...props }) => {
     const draggableOption = React.useRef<Option>(null);
+    const menuRef = React.useRef<HTMLUListElement>(null);
 
     return (
         <DragAndDropContext.Provider
             value={{
-                draggableOption
+                draggableOption,
+                menuRef
             }}
         >
             <section {...props}>{children}</section>
@@ -28,25 +25,26 @@ export const Root: React.FC<RootProps> = ({ children, ...props }) => {
     );
 };
 
-interface DropAreaProps
-    extends Omit<React.ComponentPropsWithoutRef<"ul">, "children"> {
-    renderItems: (items: Option) => React.ReactElement;
+interface DropAreaProps {
+    placeholder: React.ReactElement;
+    renderOptions: (options: Option[]) => React.ReactElement;
 }
 
 export const DropArea: React.FC<DropAreaProps> = ({
-    onDragOver,
-    onDrop,
-    renderItems,
-    ...props
+    renderOptions,
+    placeholder
 }) => {
-    const [options, setOptions] = React.useState<Omit<Option, "element">[]>([]);
+    const [options, setOptions] = React.useState<Option[]>([]);
 
-    const { draggableOption } = useDragAndDropContext();
+    const { draggableOption, menuRef } = useDragAndDropContext();
 
     const onDropHandler: React.DragEventHandler<HTMLUListElement> = event => {
         event.preventDefault();
 
-        console.log(draggableOption.current);
+        if (!draggableOption.current || !menuRef.current) return;
+
+        const optionsList = menuRef.current.children;
+        const id = draggableOption.current.id;
 
         setOptions(options => {
             if (!draggableOption.current) return options;
@@ -56,6 +54,7 @@ export const DropArea: React.FC<DropAreaProps> = ({
                     [
                         ...options,
                         {
+                            id: draggableOption.current.id,
                             label: draggableOption.current.label,
                             value: draggableOption.current.value
                         }
@@ -64,10 +63,11 @@ export const DropArea: React.FC<DropAreaProps> = ({
             ).map(option => JSON.parse(option));
         });
 
-        // draggableOption.current?.element.current?.setAttribute(
-        //     "aria-selected",
-        //     "true"
-        // );
+        const option = Array.prototype.find.call(
+            optionsList,
+            option => (option as HTMLLIElement).getAttribute("id") === id
+        );
+        option.setAttribute("aria-selected", "true");
         // draggableOption.current = null;
     };
 
@@ -80,15 +80,40 @@ export const DropArea: React.FC<DropAreaProps> = ({
         // );
     };
 
-    return (
-        <ul
-            onDragOver={composeEventHandlers(onDragOver, onDragOverHandler)}
-            onDrop={composeEventHandlers(onDrop, onDropHandler)}
-            {...props}
-        >
-            {options.map(option => renderItems(option))}
-        </ul>
-    );
+    const {
+        onDragOver: onPlaceholderDragOver,
+        onDrop: onPlaceholderDrop,
+        ...restPlaceholderProps
+    } = placeholder.props;
+    const renderedOptions = renderOptions(options);
+    const { onDragOver, onDrop, ...restRenderOptionProps } =
+        renderedOptions.props;
+
+    if (options.length === 0)
+        return React.cloneElement(placeholder, {
+            onDragOver: composeEventHandlers(
+                onPlaceholderDragOver,
+                onDragOverHandler
+            ),
+            onDrop: composeEventHandlers(onPlaceholderDrop, onDropHandler),
+            ...restPlaceholderProps
+        });
+
+    // return (
+    //     <ul
+    //         onDragOver={composeEventHandlers(onDragOver, onDragOverHandler)}
+    //         onDrop={composeEventHandlers(onDrop, onDropHandler)}
+    //         {...props}
+    //     >
+    //         {options.map(option => renderItems(option))}
+    //     </ul>
+    // );
+
+    return React.cloneElement(renderedOptions, {
+        onDragOver: composeEventHandlers(onDragOver, onDragOverHandler),
+        onDrop: composeEventHandlers(onDrop, onDropHandler),
+        ...restRenderOptionProps
+    });
 };
 
 interface OptionListProps extends React.ComponentPropsWithoutRef<"ul"> {
@@ -98,9 +123,12 @@ interface OptionListProps extends React.ComponentPropsWithoutRef<"ul"> {
 }
 
 export const OptionList: React.FC<OptionListProps> = ({ ...props }) => {
+    const { menuRef } = useDragAndDropContext();
+
     return (
         <ul
             role="listbox"
+            ref={menuRef}
             {...props}
         />
     );
@@ -122,29 +150,22 @@ export const Option: React.FC<OptionProps> = ({
     const { draggableOption } = useDragAndDropContext();
 
     const onDragStartHandler: React.DragEventHandler<HTMLLIElement> = event => {
-        // const id = event.currentTarget.getAttribute("id")!;
+        const id = event.currentTarget.getAttribute("id")!;
+
+        const element = event.currentTarget;
+
         draggableOption.current = {
+            id,
             label,
-            value
-            // element: optionRef
+            value,
+            element
         };
         event.dataTransfer.effectAllowed = "move";
     };
 
-    // const onDragEndHandler: React.DragEventHandler<HTMLLIElement> = event => {
-    //     console.log(event.target);
-
-    // event.currentTarget.style.setProperty("background", "");
-    // event.currentTarget.setAttribute("aria-selected", "true");
-    // };
-
     const onDragOverHandler: React.DragEventHandler<HTMLElement> = event => {
         event.preventDefault();
         event.dataTransfer.dropEffect = "move";
-        // event.currentTarget.style.setProperty(
-        //     "background",
-        //     "rgba(0 0 0 / 0.05)"
-        // );
     };
 
     return (
@@ -154,12 +175,7 @@ export const Option: React.FC<OptionProps> = ({
             draggable
             aria-selected="false"
             onDragStart={composeEventHandlers(onDragStart, onDragStartHandler)}
-            // onDragEnd={onDragEndHandler}
-            // onDragLeave={event => {
-            //     event.currentTarget.style.setProperty("background", "red");
-            // }}
             onDragOver={composeEventHandlers(onDragOver, onDragOverHandler)}
-            // ref={optionRef}
             {...props}
         />
     );

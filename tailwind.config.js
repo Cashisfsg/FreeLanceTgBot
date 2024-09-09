@@ -32,6 +32,9 @@ export default withTV({
                 primary: "SF Pro",
                 secondary: "SF Pro Rounded"
             },
+            padding: {
+                15: "3.75rem"
+            },
             margin: {
                 7.5: "30px"
             },

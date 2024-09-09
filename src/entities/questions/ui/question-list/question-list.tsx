@@ -10,7 +10,10 @@ export const QuestionList: React.FC<QuestionListProps> = ({ questions }) => {
     return (
         <>
             {questions?.map(question => (
-                <QuestionListItem question={question} />
+                <QuestionListItem
+                    key={question.question_id}
+                    question={question}
+                />
             ))}
         </>
     );

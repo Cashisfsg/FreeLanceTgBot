@@ -26,7 +26,7 @@ export const OptionGroupItem: React.FC<OptionGroupItemProps> = ({
                     <dd>{option.subtitle}</dd>
                 </dl>
             ) : (
-                <p>{option.option_text}</p>
+                <span>{option.option_text}</span>
             )}
         </label>
     );

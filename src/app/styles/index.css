@@ -85,4 +85,15 @@ h4,
 h5,
 h6 {
     letter-spacing: -0.025em;
+    text-wrap: balance;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

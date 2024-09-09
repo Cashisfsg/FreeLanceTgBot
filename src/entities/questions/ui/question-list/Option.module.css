@@ -29,15 +29,15 @@
         }
     }
 
-    & > label:has(p) {
-        & > p {
+    & > label:has(span) {
+        & > span {
             @apply py-3 text-lg/tight;
         }
     }
 
-    & > label:has(dl, p):not(:last-of-type) {
+    & > label:has(dl, span):not(:last-of-type) {
         & > dl,
-        p {
+        span {
             @apply border-b border-black/15;
         }
     }

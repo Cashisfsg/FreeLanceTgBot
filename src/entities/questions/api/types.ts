@@ -25,24 +25,33 @@ type TextInputType =
     // | "tel"
     | "textarea";
 
+interface TextInput {
+    type: TextInputType;
+    description: string;
+    placeholder: string;
+}
+
+interface FileInput {
+    types: string;
+    button_text: string;
+}
+
+interface Link {
+    url: string;
+    text: string;
+}
 export interface Question {
     question_id: number;
     question_key: string;
     question_type: QuestionType;
     question_text: string;
     question_description?: string;
-    required: boolean;
-    has_text_input: boolean;
-    text_input_type?: TextInputType;
-    text_input_description?: string;
-    text_input_placeholder: string;
-    has_file_input: boolean;
-    file_input_types: string;
-    file_input_button_text: string;
-    link_url?: string;
-    link_text?: string;
-    options: Option[];
+    is_required: boolean;
     display_order: number;
+    text_input: TextInput | null;
+    file_input: FileInput | null;
+    link: Link | null;
+    options: Option[] | null;
 }
 
 export interface Option {
@@ -51,7 +60,7 @@ export interface Option {
     option_text: string;
     subtitle: string | null;
     icon_url: string | null;
-    hint: string;
+    hint: string | null;
     display_order: number;
 }
 
