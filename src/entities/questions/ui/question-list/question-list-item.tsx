@@ -3,6 +3,7 @@
 import { cnBase } from "tailwind-variants";
 
 import { HeaderGroup } from "@/shared/ui/header-group";
+import { Select } from "@/shared/ui/select";
 import { Input } from "@/shared/ui/input";
 import { TextArea } from "@/shared/ui/input/textarea";
 import { FileUploader } from "@/shared/ui/file-uploader";
@@ -14,6 +15,7 @@ import { DragAndDrop } from "@/shared/ui/drag-and-drop";
 import { Tooltip } from "@/shared/ui/tooltip";
 
 import QuestionMark from "@/assets/img/svg/question-mark.svg";
+import ArrowDown from "@/assets/img/svg/arrow-down.svg";
 
 interface QuestionListItemProps
     extends React.ComponentPropsWithoutRef<"section"> {
@@ -108,7 +110,48 @@ export const QuestionListItem: React.FC<QuestionListItemProps> = ({
             //     selectedItems={selectedItems}
             //     onChange={handleDragDropChange}
             // />
-            question.options && question.options.length !== 0 ? (
+            question.question_type === "combobox" ? (
+                <Select.Root name="select name">
+                    <Select.Search>
+                        <section>
+                            <Select.Menu className="rounded-xl bg-white pl-4">
+                                {question.options?.map(option => (
+                                    <Select.Option
+                                        key={option.option_id}
+                                        value={option.option_key}
+                                        label={option.option_text}
+                                        className="group flex h-12 cursor-pointer select-none content-center items-center justify-between border-b py-2 pr-4 text-base/5.5"
+                                    >
+                                        <span>{option.option_text}</span>
+                                        <svg
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 16 16"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="hidden group-aria-selected:block"
+                                        >
+                                            <path
+                                                d="M6.17435 16C5.70054 16 5.2978 15.7902 4.96613 15.3706L0.364242 9.55074C0.233944 9.39263 0.139182 9.23755 0.0799556 9.08552C0.0266519 8.93349 0 8.77537 0 8.61117C0 8.24629 0.118453 7.94527 0.355358 7.7081C0.592264 7.47092 0.891357 7.35234 1.25264 7.35234C1.6613 7.35234 2.00481 7.53174 2.28318 7.89054L6.13881 12.9076L13.6635 0.665906C13.8175 0.422653 13.9774 0.252376 14.1433 0.155074C14.3091 0.0516914 14.5164 0 14.7651 0C15.1264 0 15.4225 0.115545 15.6535 0.346636C15.8845 0.577727 16 0.872672 16 1.23147C16 1.37742 15.9763 1.52338 15.9289 1.66933C15.8815 1.81528 15.8075 1.96731 15.7068 2.12543L7.39145 15.3341C7.10716 15.778 6.70146 16 6.17435 16Z"
+                                                fill="#007AFF"
+                                            />
+                                        </svg>
+                                    </Select.Option>
+                                ))}
+                            </Select.Menu>
+                        </section>
+                    </Select.Search>
+                    <Select.Trigger className="group">
+                        <img
+                            src={ArrowDown}
+                            alt="Arrow down"
+                            width={12}
+                            height={8}
+                            className="h-2 w-3 max-w-none transition-transform duration-300 group-aria-expanded:rotate-180"
+                        />
+                    </Select.Trigger>
+                </Select.Root>
+            ) : question.options && question.options.length !== 0 ? (
                 <OptionGroup
                     type={question.question_type}
                     name={question.question_key}

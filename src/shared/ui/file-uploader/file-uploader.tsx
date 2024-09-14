@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 
 import Clip from "@/assets/img/svg/clip.svg";
 import Cross from "@/assets/img/svg/cross.svg";
@@ -59,15 +59,23 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
     buttonText
 }) => {
     const [fileList, dispatch] = useReducer(reducer, []);
+    const dataTransfer = useRef(new DataTransfer());
 
     const onChangeHandler: React.ChangeEventHandler<
         HTMLInputElement
     > = event => {
-        const files = event.target.files;
+        const input = event.currentTarget;
+        const files = input.files;
 
         if (!files || files.length === 0) return;
 
-        dispatch({ type: "append", payload: Array.from(files) });
+        const newFiles = Array.from(files);
+
+        [...fileList.map(file => file.file), ...newFiles].forEach(file =>
+            dataTransfer.current.items.add(file)
+        );
+        input.files = dataTransfer.current.files;
+        dispatch({ type: "append", payload: newFiles });
     };
 
     const removeFile = (file: File) => {
@@ -123,7 +131,7 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
                     ))}
                 </ul>
             ) : null}
-            <label className="gap-x-4.5 flex cursor-pointer items-center group-has-[ul]:py-3">
+            <label className="gap-x-4.5 flex w-fit cursor-pointer items-center group-has-[ul]:py-3">
                 {fileList.length !== 0 ? (
                     <>
                         <img

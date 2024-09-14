@@ -13,8 +13,8 @@ export type QuestionType =
     | "vertical_slider"
     | "drag_and_drop"
     // | "select"
-    | "text";
-// | "combobox";
+    | "text"
+    | "combobox";
 
 type TextInputType =
     | "text"

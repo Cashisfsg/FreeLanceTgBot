@@ -1,16 +1,16 @@
 import { createContext, useContext } from "react";
-import { Action } from "./select";
+
+export interface Option {
+    label: string | number;
+    value: string | number;
+}
 
 export const SelectContext = createContext<{
-    name?: string;
-    multiple: boolean;
-    triggerId: string;
-    dispatch: React.Dispatch<Action>;
-    selectMenuId: string;
-    triggerRef: React.RefObject<HTMLButtonElement>;
-    menuRef: React.RefObject<HTMLUListElement>;
-    query: string;
-    setQuery: React.Dispatch<React.SetStateAction<string>>;
+    optionsListId: string;
+    inputRef: React.RefObject<HTMLInputElement>;
+    defaultOptions: React.MutableRefObject<Option[]>;
+    selectedOptions: Option[];
+    setSelectedOptions: React.Dispatch<React.SetStateAction<Option[]>>;
 } | null>(null);
 
 export const useSelectContext = () => {

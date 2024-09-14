@@ -1,12 +1,13 @@
 .root {
     position: relative;
+    isolation: isolate;
 }
 
-.trigger[aria-expanded="false"] + .menu {
+.root:has(.trigger[aria-expanded="false"]) .menu {
     display: none;
 }
 
-.trigger[aria-expanded="true"] + .menu {
+.root:has(.trigger[aria-expanded="true"]) .menu {
     display: block;
 }
 
@@ -14,4 +15,5 @@
     display: none;
     width: 100%;
     position: absolute;
+    z-index: 1;
 }

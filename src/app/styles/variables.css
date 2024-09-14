@@ -1,6 +1,6 @@
 :root {
     /* ! Background colors */
-    --bg-color: var(--tg-theme-bg-color);
+    --bg-color: var(--tg-theme-bg-color, #efeff4);
     --secondary_bg_color: var(--tg-theme-secondary-bg-color);
     --section_bg_color: var(--tg-theme-section-bg-color);
     --header_bg_color: var(--tg-theme-header-bg-color);
