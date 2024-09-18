@@ -6,19 +6,15 @@ interface TextAreaProps extends React.ComponentPropsWithoutRef<"textarea"> {}
 
 export const TextArea: React.FC<TextAreaProps> = ({
     className,
-    rows,
-    maxLength,
+    rows = 3,
+    maxLength = 2048,
     ...props
 }) => {
     return (
         <textarea
-            rows={rows || 3}
-            maxLength={maxLength || 2048}
-            className={cnBase(
-                "w-full resize-none rounded-xl bg-white p-4 shadow-md placeholder:text-[#a2acb0]",
-                Textarea.textarea,
-                className
-            )}
+            rows={rows}
+            maxLength={maxLength}
+            className={cnBase(Textarea.textarea, className)}
             {...props}
         />
     );

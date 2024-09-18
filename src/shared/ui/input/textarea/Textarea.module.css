@@ -1,4 +1,10 @@
 .textarea {
-    /* min-height: 3em; */
-    /* field-sizing: content; */
+    @apply w-full resize-none rounded-xl bg-white p-4 shadow-md placeholder:text-[#a2acb0];
+}
+
+@supports (field-sizing: content) {
+    .textarea {
+        @apply min-h-24;
+        field-sizing: content;
+    }
 }

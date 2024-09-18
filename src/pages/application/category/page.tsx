@@ -1,5 +1,6 @@
 import { FetchQuestions } from "@/entities/questions";
 import { QuestionList } from "@/entities/questions/ui/question-list";
+import { Badge } from "@/shared/ui/badge";
 
 export const ApplicationCategoryPage = () => {
     return (
@@ -17,6 +18,8 @@ export const ApplicationCategoryPage = () => {
                     )}
                 />
             </form>
+
+            <Badge variant="secondary">Designer</Badge>
         </main>
     );
 };

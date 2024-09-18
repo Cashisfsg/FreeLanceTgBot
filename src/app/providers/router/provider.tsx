@@ -9,6 +9,12 @@ import { ApplicationLayout } from "@/pages/application/layout";
 import { ApplicationCategoryPage } from "@/pages/application/category";
 import { ApplicationFunctionalityPage } from "@/pages/application/functionality";
 import { ApplicationWorkConditionsPage } from "@/pages/application/work-conditions";
+import { UserPage } from "@/pages/user";
+import { SupportPage } from "@/pages/support";
+import { FeedbackPage } from "@/pages/support/feedback";
+import { IssuePage } from "@/pages/support/issue";
+import { ProposalPage } from "@/pages/support/proposal";
+import { AppreciationPage } from "@/pages/support/appreciation";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +42,30 @@ const router = createBrowserRouter([
                 element: <Navigate to="/application/category" />
             }
         ]
+    },
+    {
+        path: "user",
+        element: <UserPage />
+    },
+    {
+        path: "support",
+        element: <SupportPage />
+    },
+    {
+        path: "support/feedback",
+        element: <FeedbackPage />
+    },
+    {
+        path: "support/issue",
+        element: <IssuePage />
+    },
+    {
+        path: "support/proposal",
+        element: <ProposalPage />
+    },
+    {
+        path: "support/appreciation",
+        element: <AppreciationPage />
     },
     {
         path: "*",

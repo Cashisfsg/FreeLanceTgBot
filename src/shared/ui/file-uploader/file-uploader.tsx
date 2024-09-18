@@ -1,4 +1,5 @@
 import { useReducer, useRef } from "react";
+import { cnBase } from "tailwind-variants";
 
 import Clip from "@/assets/img/svg/clip.svg";
 import Cross from "@/assets/img/svg/cross.svg";
@@ -49,14 +50,16 @@ const reducer = (state: State, action: Action): State => {
     }
 };
 
-interface FileUploaderProps {
+interface FileUploaderProps extends React.ComponentPropsWithoutRef<"div"> {
     fileTypes?: string;
     buttonText: string;
 }
 
 export const FileUploader: React.FC<FileUploaderProps> = ({
+    className,
     fileTypes,
-    buttonText
+    buttonText,
+    ...props
 }) => {
     const [fileList, dispatch] = useReducer(reducer, []);
     const dataTransfer = useRef(new DataTransfer());
@@ -83,7 +86,13 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
     };
 
     return (
-        <div className="group rounded-xl has-[ul]:bg-white has-[ul]:px-4 has-[ul]:shadow-md">
+        <div
+            className={cnBase(
+                "group rounded-xl has-[ul]:bg-white has-[ul]:px-4 has-[ul]:shadow-md",
+                className
+            )}
+            {...props}
+        >
             {fileList.length !== 0 ? (
                 <ul>
                     {fileList.map(document => (

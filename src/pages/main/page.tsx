@@ -13,7 +13,7 @@ export const MainPage = () => {
                     width="96"
                     className="row-span-2 size-24 rounded-full object-cover"
                 />
-                <h2 className="mt-4 self-end truncate font-secondary text-3xl font-bold capitalize tracking-wide">
+                <h2 className="mt-4 self-end truncate font-secondary text-4xl font-bold capitalize tracking-wide">
                     Anthony Gray
                 </h2>
                 <p className="mb-4 self-start text-base/snug tracking-tight text-[#707579]">

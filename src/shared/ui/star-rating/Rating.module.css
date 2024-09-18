@@ -1,0 +1,21 @@
+.rating {
+    @apply cursor-pointer p-1;
+}
+
+.rating:not(:hover) {
+    @apply text-black/15;
+}
+
+.rating:hover,
+.rating:has(~ :hover) {
+    @apply text-[#007aff];
+}
+
+.rating:hover ~ .rating {
+    @apply text-black/15;
+}
+
+.rating:has(input:checked),
+.rating:has(~ .rating > input:checked) {
+    @apply text-[#007aff];
+}
